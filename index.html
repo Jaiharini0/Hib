@@ -25,8 +25,8 @@
         <a-asset-item id="hibbbModel" src="hibiscus3.glb"></a-asset-item>
       </a-assets>
 
-      <!-- Galaxy Intro -->
-      <a-entity id="galaxyIntro"
+      <!-- Hibb1 -->
+      <a-entity id="hib1"
                 gltf-model="#hibModel"
                 position="0 2 -30"
                 scale="5 5 5"
@@ -34,9 +34,20 @@
                 animation="property: rotation; to: 0 360 0; loop: true; dur: 2000">
       </a-entity>
 
-      <!-- Solar System -->
-      <a-entity id="solarSystem"
+      <!-- Hibb2 -->
+      <a-entity id="hib2"
                 gltf-model="#hibbModel"
+                animation-mixer
+                position="0 2 -30"
+                scale="0.5 0.5 0.5"
+                visible="false"
+                gesture-controls
+                planet-speech>
+      </a-entity>
+
+      <!-- Hibb3 -->
+      <a-entity id="hib3"
+                gltf-model="#hibbbModel"
                 animation-mixer
                 position="0 2 -30"
                 scale="0.5 0.5 0.5"
@@ -83,88 +94,6 @@
       speechSynthesis.speak(utterance);
     }
 
-    function speak(text) {
-      let utterance = new SpeechSynthesisUtterance(text);
-      utterance.lang = "en-US";
-      utterance.rate = 1;
-      utterance.onend = function () {
-        if (label && label.parentNode) {
-          label.parentNode.removeChild(label);
-          label = null;
-        }
-      };
-      speechSynthesis.speak(utterance);
-    }
-
-    const planetDescriptions = {
-      Sun: "I am the Sun, the heart of the Solar System. I provide light and warmth to all the planets!. My gravity keeps the planets in orbit!.I have been shining for over 4.6 billion years! My surface temperature is around 5,500°C",
-      Mercury: "I am Mercury, the closest planet to the Sun. I am small but incredibly fast!",
-      Venus: "I am Venus, the hottest planet in the solar system, covered with thick clouds!.",
-      Earth: "Hello! I am Earth, your home planet. The only planet known to support life.",
-      Mars: "I am Mars, also called the Red Planet. Scientists are searching for signs of life here.",
-      Jupiter: "I am Jupiter, the biggest planet in the solar system. My Great Red Spot is a giant storm!",
-      Saturn: "I am Saturn, famous for my beautiful rings made of ice and rock!.",
-      Uranus: "I am Uranus, I rotate on my side!, and I am a frozen gas giant!",
-      Neptune: "I am Neptune, the farthest planet from the Sun. My winds are the fastest in the Solar System!"
-    };
-
-    let label = null;
-
-    function createLabel(planetName, planet) {
-      let existingLabel = document.querySelector(`#label-${planetName}`);
-      if (existingLabel) return;
-
-      label = document.createElement("a-entity");
-      label.setAttribute("id", `label-${planetName}`);
-      label.setAttribute("text", {
-        value: planetName,
-        align: "center",
-        color: "#FFFFFF",
-        side: "double",
-        width: 50,
-        baseline: "bottom"
-      });
-
-      let pos = planet.object3D.position;
-      label.setAttribute("position", {
-        x: pos.x,
-        y: pos.y + 1.5,
-        z: pos.z
-      });
-
-      label.setAttribute("look-at", "[camera]");
-      label.setAttribute("scale", "1 1 1");
-      document.querySelector("a-scene").appendChild(label);
-    }
-
-    function getPlanetName(object) {
-      while (object) {
-        if (planetDescriptions[object.name]) {
-          return object.name;
-        }
-        object = object.parent;
-      }
-      return null;
-    }
-     document.querySelector("#solarSystem").setAttribute("planet-speech", "");
-
-    AFRAME.registerComponent("planet-speech", {
-      init: function () {
-        let el = this.el;
-        el.addEventListener("model-loaded", function () {
-          el.addEventListener("click", function (event) {
-            let clickedPlanet = event.detail.intersection.object;
-            let planetName = getPlanetName(clickedPlanet);
-
-            if (planetName) {
-              speak(planetDescriptions[planetName] || "I am a mysterious celestial body.");
-              createLabel(planetName, el);
-            }
-          });
-        });
-      }
-    });
-
     document.getElementById('startAR').addEventListener('click', async function () {
       try {
         const stream = await navigator.mediaDevices.getUserMedia({ video: true });
@@ -172,9 +101,9 @@
           document.getElementById('startAR').style.display = 'none';
           document.getElementById('arContainer').style.display = 'block';
 
-          const galaxy = document.querySelector("#galaxyIntro");
-          const solar = document.querySelector("#solarSystem");
-          const sun = document.querySelector("#sun");
+          const h1 = document.querySelector("#hib1");
+          const h2 = document.querySelector("#hib2");
+          const h3 = document.querySelector("#hib3");
           const camera = document.querySelector("#mainCamera");
 
           galaxy.setAttribute("visible", "true");
@@ -188,12 +117,20 @@
                 easing: "easeInOutQuad"
               });
 
-              galaxy.setAttribute("visible", "false");
-              solar.setAttribute("visible", "true");
-              sun.setAttribute("visible", "true");
+              h1.setAttribute("visible", "false");
+              h2.setAttribute("visible", "true");
+              setTimeout(() => {
+                camera.setAttribute("animation", {
+                  property: "position",
+                  to: "1 5 5",
+                  dur: 5000,
+                  easing: "easeInOutQuad"
+              });
+              h2.setAttribute("visible", "false");
+              h3.setAttribute("visible", "true");
               document.querySelector("#quizButton").setAttribute("visible", "true");
 
-              speak(planetDescriptions["Sun"]);
+              
             }, 5000);
           });
         }
@@ -203,9 +140,10 @@
     });
 
     const quizData = [
-      { question: "Which planet is known as the Red Planet?", options: ["Venus", "Mars", "Jupiter"], answer: "Mars" },
-      { question: "Which is the largest planet in our Solar System?", options: ["Earth", "Saturn", "Jupiter"], answer: "Jupiter" },
-      { question: "Which planet has beautiful rings?", options: ["Uranus", "Saturn", "Neptune"], answer: "Saturn" }
+      { question: "Which part is male reproductive?", options: ["Pistil", "Sepal", "Stamen"], answer: "Pistil" },
+      { question: "Which part is female reproductive?", options: ["Filament", "Stamen", "Pistil"], answer: "Stamen" },
+      { question: "Which part attracts the pollen grains?", options: ["Stamen", "Anther", "Petal"], answer: "Petal" },
+      { question: "Which part protects the buds?", options: ["Sepal", "Petal", "Stamen"], answer: "Sepal" }
     ];
 
     let currentQuestion = 0;
