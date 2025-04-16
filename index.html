@@ -54,7 +54,6 @@
                 gesture-controls>
       </a-entity>
 
-     
       <!-- Quiz Button -->
       <a-entity id="quizButton"
                 geometry="primitive: plane; height: 0.4; width: 1.5"
@@ -104,8 +103,6 @@
           const h3 = document.querySelector("#hib3");
           const camera = document.querySelector("#mainCamera");
 
-          galaxy.setAttribute("visible", "true");
-
           introSpeak("Welcome to explore the parts of hibiscus...", () => {
             setTimeout(() => {
               camera.setAttribute("animation", {
@@ -115,13 +112,24 @@
                 easing: "easeInOutQuad"
               });
 
-              h1.setAttribute("visible", "false");
-              h2.setAttribute("visible", "true");
-              // h2.setAttribute("visible", "false");
-              // h3.setAttribute("visible", "true");
-              document.querySelector("#quizButton").setAttribute("visible", "true");
- 
-            }, 5000);
+              // Show hibiscus parts one by one
+              h1.setAttribute("visible", "true");
+
+              setTimeout(() => {
+                h1.setAttribute("visible", "false");
+                h2.setAttribute("visible", "true");
+
+                setTimeout(() => {
+                  h2.setAttribute("visible", "false");
+                  h3.setAttribute("visible", "true");
+
+                  // Show quiz button after hibiscus parts
+                  setTimeout(() => {
+                    document.querySelector("#quizButton").setAttribute("visible", "true");
+                  }, 3000);
+                }, 5000); // Show hib3 for 5 seconds
+              }, 5000); // Show hib2 for 5 seconds
+            }, 5000); // Speak for 5 seconds before starting hibiscus parts
           });
         }
       } catch (err) {
@@ -130,8 +138,8 @@
     });
 
     const quizData = [
-      { question: "Which part is male reproductive?", options: ["Pistil", "Sepal", "Stamen"], answer: "Pistil" },
-      { question: "Which part is female reproductive?", options: ["Filament", "Stamen", "Pistil"], answer: "Stamen" },
+      { question: "Which part is male reproductive?", options: ["Pistil", "Sepal", "Stamen"], answer: "Stamen" },
+      { question: "Which part is female reproductive?", options: ["Filament", "Stamen", "Pistil"], answer: "Pistil" },
       { question: "Which part attracts the pollen grains?", options: ["Stamen", "Anther", "Petal"], answer: "Petal" },
       { question: "Which part protects the buds?", options: ["Sepal", "Petal", "Stamen"], answer: "Sepal" }
     ];
