@@ -119,19 +119,10 @@
 
               h1.setAttribute("visible", "false");
               h2.setAttribute("visible", "true");
-            },5000)
-              setTimeout(() => {
-                camera.setAttribute("animation", {
-                  property: "position",
-                  to: "1 5 5",
-                  dur: 5000,
-                  easing: "easeInOutQuad"
-              });
               h2.setAttribute("visible", "false");
               h3.setAttribute("visible", "true");
               document.querySelector("#quizButton").setAttribute("visible", "true");
-
-              
+ 
             }, 5000);
           });
         }
