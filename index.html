@@ -38,7 +38,7 @@
       <a-entity id="hib2"
                 gltf-model="#hibbModel"
                 animation-mixer
-                position="2 0 -70"
+                position="0 10 -70"
                 scale="0.5 0.5 0.5"
                 visible="false"
                 gesture-controls>
@@ -48,9 +48,11 @@
       <a-entity id="hib3"
                 gltf-model="#hibbbModel"
                 animation-mixer
-                position="0 0 -50"
+                position="0 0 -60"
                 scale="50 50 50"
                 visible="false"
+                class="clickable"
+                label-on-click
                 gesture-controls>
       </a-entity>
 
@@ -58,7 +60,7 @@
       <a-entity id="quizButton"
                 geometry="primitive: plane; height: 0.4; width: 1.5"
                 material="color: #28a745; opacity: 0.9"
-                position="0 1.5 3"
+                position="0 1.5 1"
                 text="value: Take the Quiz; align: center; color: white; width: 4"
                 visible="false"
                 class="clickable"
@@ -91,35 +93,67 @@
       speechSynthesis.speak(utterance);
     }
 
-    const model = document.querySelector('#hib3');
-    model.addEventListener('model-loaded', () => {
-      const mixer = model.components['animation-mixer'].mixer;
-      const animations = model.getObject3D('mesh').animations;
-  
-      // Get all label clips and sort them by name or desired order
-      const labelClips = animations.filter(a => a.name.startsWith('Label_'));
-  
-      let index = 0;
-  
-      function playNext() {
-        if (index >= labelClips.length) return;
-  
-        const action = mixer.clipAction(labelClips[index]);
-        action.setLoop(THREE.LoopOnce);
-        action.clampWhenFinished = true;
-        action.play();
-  
-        // Wait for action to finish
-        action.getMixer().addEventListener('finished', function handler(e) {
-          mixer.removeEventListener('finished', handler);
-          index++;
-          playNext();
+    AFRAME.registerComponent("label-on-click", {
+      init: function () {
+        const el = this.el;
+    
+        el.addEventListener("model-loaded", () => {
+          const flower = el.getObject3D("mesh");
+    
+          flower.traverse((node) => {
+            if (node.isMesh && node.name) {
+              node.userData.partName = node.name; // Store part name
+              node.el = el; // Reference to A-Frame entity
+    
+              // Make it clickable
+              const partEntity = document.createElement("a-entity");
+              partEntity.setAttribute("geometry", "primitive: box; height: 0.01; width: 0.01; depth: 0.01");
+              partEntity.setAttribute("material", "transparent: true; opacity: 0");
+              partEntity.setAttribute("position", node.position);
+              partEntity.setAttribute("class", "clickable");
+              partEntity.setAttribute("part-name", node.name);
+    
+              // Add event listener
+              partEntity.addEventListener("click", function () {
+                showLabel(node.name, node.position);
+              });
+    
+              el.sceneEl.appendChild(partEntity);
+            }
+          });
         });
-      }
-  
-      playNext();
+    
+        function showLabel(name, position) {
+          // Check if label already exists
+          if (document.getElementById("label-" + name)) return;
+    
+          const label = document.createElement("a-entity");
+          label.setAttribute("id", "label-" + name);
+          label.setAttribute("text", {
+            value: name,
+            align: "center",
+            color: "#FFD700",
+            width: 2,
+          });
+          label.setAttribute("position", {
+            x: position.x,
+            y: position.y + 0.2,
+            z: position.z,
+          });
+    
+          // Animate scale pop-in
+          label.setAttribute("scale", "0 0 0");
+          label.setAttribute("animation", {
+            property: "scale",
+            to: "1 1 1",
+            dur: 500,
+            easing: "easeOutElastic",
+          });
+    
+          el.sceneEl.appendChild(label);
+        }
+      },
     });
-
     document.getElementById('startAR').addEventListener('click', async function () {
       try {
         const stream = await navigator.mediaDevices.getUserMedia({ video: true });
