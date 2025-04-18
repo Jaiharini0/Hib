@@ -104,6 +104,8 @@
           const camera = document.querySelector("#mainCamera");
 
           introSpeak("Welcome to explore the parts of hibiscus...", () => {
+            // Show hibiscus parts one by one
+            h1.setAttribute("visible", "true");
             setTimeout(() => {
               camera.setAttribute("animation", {
                 property: "position",
@@ -112,8 +114,7 @@
                 easing: "easeInOutQuad"
               });
 
-              // Show hibiscus parts one by one
-              h1.setAttribute("visible", "true");
+              
 
               setTimeout(() => {
                 h1.setAttribute("visible", "false");
