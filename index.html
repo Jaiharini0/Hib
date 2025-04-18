@@ -38,7 +38,7 @@
       <a-entity id="hib2"
                 gltf-model="#hibbModel"
                 animation-mixer
-                position="0 2 -70"
+                position="2 0 -70"
                 scale="0.5 0.5 0.5"
                 visible="false"
                 gesture-controls>
@@ -58,7 +58,7 @@
       <a-entity id="quizButton"
                 geometry="primitive: plane; height: 0.4; width: 1.5"
                 material="color: #28a745; opacity: 0.9"
-                position="0 1.5 5"
+                position="0 1.5 3"
                 text="value: Take the Quiz; align: center; color: white; width: 4"
                 visible="false"
                 class="clickable"
@@ -90,6 +90,35 @@
       utterance.onend = callback;
       speechSynthesis.speak(utterance);
     }
+
+    const model = document.querySelector('#hib3');
+    model.addEventListener('model-loaded', () => {
+      const mixer = model.components['animation-mixer'].mixer;
+      const animations = model.getObject3D('mesh').animations;
+  
+      // Get all label clips and sort them by name or desired order
+      const labelClips = animations.filter(a => a.name.startsWith('Label_'));
+  
+      let index = 0;
+  
+      function playNext() {
+        if (index >= labelClips.length) return;
+  
+        const action = mixer.clipAction(labelClips[index]);
+        action.setLoop(THREE.LoopOnce);
+        action.clampWhenFinished = true;
+        action.play();
+  
+        // Wait for action to finish
+        action.getMixer().addEventListener('finished', function handler(e) {
+          mixer.removeEventListener('finished', handler);
+          index++;
+          playNext();
+        });
+      }
+  
+      playNext();
+    });
 
     document.getElementById('startAR').addEventListener('click', async function () {
       try {
