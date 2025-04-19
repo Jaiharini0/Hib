@@ -74,7 +74,7 @@
       </a-entity>
 
       <!-- Invisible clickable sphere on Style -->
-      <a-sphere position="3 8 -10" radius="2"
+      <a-sphere position="0 8 -10" radius="2"
                 material="color: green;"
                 class="clickable"
                 event-set__click="_event: click; _target: #Label_Style; visible: true"
@@ -95,12 +95,12 @@
       </a-sphere>
 
       <!-- Filament Label (Initially hidden) -->
-      <a-entity id="Label_Filament" position="-2 10 -10" visible="false" scale="0 0 0">
+      <a-entity id="Label_Filament" position="2 10 -10" visible="false" scale="0 0 0">
         <a-text value="The filament supports the anther and helps in pollen transfer." color="yellow" scale="10 10 10"></a-text>
       </a-entity>
 
       <!-- Invisible clickable sphere on Filament -->
-      <a-sphere position="2 8 -10" radius="2"
+      <a-sphere position="-2 8 -10" radius="2"
                 material="color: black;"
                 class="clickable"
                 event-set__click="_event: click; _target: #Label_Filament; visible: true"
