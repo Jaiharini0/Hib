@@ -68,6 +68,70 @@
                 onclick="revealLabel('Petal', 'Petal helps attract pollinators with its color.')">
       </a-sphere>
 
+      <!-- Style Label (Initially hidden) -->
+      <a-entity id="Label_Style" position="-5 10 -10" visible="false" scale="0 0 0">
+        <a-text value="The style is a tube that connects the stigma to the ovary, guiding pollen." color="black" scale="10 10 10"></a-text>
+      </a-entity>
+
+      <!-- Invisible clickable sphere on Style -->
+      <a-sphere position="-5 8 -10" radius="2"
+                material="color: green;"
+                class="clickable"
+                event-set__click="_event: click; _target: #Label_Style; visible: true"
+                onclick="revealLabel('Style', 'The style is a tube that connects the stigma to the ovary, guiding pollen.')">
+      </a-sphere>
+
+      <!-- Stigma Label (Initially hidden) -->
+      <a-entity id="Label_Stigma" position="5 10 -10" visible="false" scale="0 0 0">
+        <a-text value="The stigma is sticky and helps catch pollen grains." color="green" scale="10 10 10"></a-text>
+      </a-entity>
+
+      <!-- Invisible clickable sphere on Stigma -->
+      <a-sphere position="-5 15 -10" radius="2"
+                material="color: yellow;"
+                class="clickable"
+                event-set__click="_event: click; _target: #Label_Stigma; visible: true"
+                onclick="revealLabel('Stigma', 'The stigma is sticky and helps catch pollen grains.')">
+      </a-sphere>
+
+      <!-- Filament Label (Initially hidden) -->
+      <a-entity id="Label_Filament" position="-8 10 -10" visible="false" scale="0 0 0">
+        <a-text value="The filament supports the anther and helps in pollen transfer." color="yellow" scale="10 10 10"></a-text>
+      </a-entity>
+
+      <!-- Invisible clickable sphere on Filament -->
+      <a-sphere position="-8 8 -10" radius="2"
+                material="color: black;"
+                class="clickable"
+                event-set__click="_event: click; _target: #Label_Filament; visible: true"
+                onclick="revealLabel('Filament', 'The filament supports the anther and helps in pollen transfer.')">
+      </a-sphere>
+
+      <!-- Ovary Label (Initially hidden) -->
+      <a-entity id="Label_Ovary" position="-3 5 -10" visible="false" scale="0 0 0">
+        <a-text value="The ovary contains ovules, which develop into seeds after fertilization." color="orange" scale="10 10 10"></a-text>
+      </a-entity>
+
+      <!-- Invisible clickable sphere on Ovary -->
+      <a-sphere position="-1 5 -10" radius="2"
+                material="color: orange;"
+                class="clickable"
+                event-set__click="_event: click; _target: #Label_Ovary; visible: true"
+                onclick="revealLabel('Ovary', 'The ovary contains ovules, which develop into seeds after fertilization.')">
+      </a-sphere>
+
+      <!-- Anther Label (Initially hidden) -->
+      <a-entity id="Label_Anther" position="-8 13 -10" visible="false" scale="0 0 0">
+        <a-text value="The anther contains pollen, the male reproductive cells of the flower." color="blue" scale="10 10 10"></a-text>
+      </a-entity>
+
+      <!-- Invisible clickable sphere on Anther -->
+      <a-sphere position="-8 13 -10" radius="2"
+                material="color: red;"
+                class="clickable"
+                event-set__click="_event: click; _target: #Label_Anther; visible: true"
+                onclick="revealLabel('Anther', 'The anther contains pollen, the male reproductive cells of the flower.')">
+      </a-sphere>
 
 
       <!-- Quiz Button -->
