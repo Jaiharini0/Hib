@@ -32,6 +32,7 @@
                 scale="30 30 30"
                 visible="true"
                 animation-mixer>
+                <a-text value="The biological name of Hibiscus is Hibiscus rosa-sinensis." color="yellow" position="-2 11 -10" scale="10 10 10"></a-text>
       </a-entity>
 
       <!-- Hibb2 -->
@@ -62,72 +63,72 @@
 
       <!-- Invisible clickable sphere on Petal -->
       <a-sphere position="5 8 -10" radius="2"
-                material="color:yellow"
+                material="opacity: 0; transparent: true"
                 class="clickable"
                 event-set__click="_event: click; _target: #Label_Petal; visible: true"
                 onclick="revealLabel('Petal', 'Petal helps attract pollinators with its color.')">
       </a-sphere>
 
       <!-- Style Label (Initially hidden) -->
-      <a-entity id="Label_Style" position="-1 11 -10" visible="false" scale="0 0 0">
+      <a-entity id="Label_Style" position="-2 11 -10" visible="false" scale="0 0 0">
         <a-text value="The style is a tube that connects the stigma to the ovary, guiding pollen." color="yellow" scale="10 10 10"></a-text>
       </a-entity>
 
       <!-- Invisible clickable sphere on Style -->
       <a-sphere position="1 7 -10" radius="0.5"
-                material="color:yellow"
+                material="opacity: 0; transparent: true"
                 class="clickable"
                 event-set__click="_event: click; _target: #Label_Style; visible: true"
                 onclick="revealLabel('Style', 'The style is a tube that connects the stigma to the ovary, guiding pollen.')">
       </a-sphere>
 
       <!-- Stigma Label (Initially hidden) -->
-      <a-entity id="Label_Stigma" position="-1 11 -10" visible="false" scale="0 0 0">
+      <a-entity id="Label_Stigma" position="-2 11 -10" visible="false" scale="0 0 0">
         <a-text value="The stigma is sticky and helps catch pollen grains." color="yellow" scale="10 10 10"></a-text>
       </a-entity>
 
       <!-- Invisible clickable sphere on Stigma -->
       <a-sphere position="1 8 -10" radius="0.5"
-                material="color:yellow"
+                material="opacity: 0; transparent: true"
                 class="clickable"
                 event-set__click="_event: click; _target: #Label_Stigma; visible: true"
                 onclick="revealLabel('Stigma', 'The stigma is sticky and helps catch pollen grains.')">
       </a-sphere>
 
       <!-- Filament Label (Initially hidden) -->
-      <a-entity id="Label_Filament" position="-1 11 -10" visible="false" scale="0 0 0">
+      <a-entity id="Label_Filament" position="-2 11 -10" visible="false" scale="0 0 0">
         <a-text value="The filament supports the anther and helps in pollen transfer." color="yellow" scale="10 10 10"></a-text>
       </a-entity>
 
       <!-- Invisible clickable sphere on Filament -->
       <a-sphere position="0 6 -10" radius="0.5"
-                material="color:yellow"
+                material="opacity: 0; transparent: true"
                 class="clickable"
                 event-set__click="_event: click; _target: #Label_Filament; visible: true"
                 onclick="revealLabel('Filament', 'The filament supports the anther and helps in pollen transfer.')">
       </a-sphere>
 
       <!-- Ovary Label (Initially hidden) -->
-      <a-entity id="Label_Ovary" position="-1 11 -10" visible="false" scale="0 0 0">
+      <a-entity id="Label_Ovary" position="-2 11 -10" visible="false" scale="0 0 0">
         <a-text value="The ovary contains ovules, which develop into seeds after fertilization." color="yellow" scale="10 10 10"></a-text>
       </a-entity>
 
       <!-- Invisible clickable sphere on Ovary -->
       <a-sphere position="0.8 3 -10" radius="2"
-                material="color:yellow"
+                material="opacity: 0; transparent: true"
                 class="clickable"
                 event-set__click="_event: click; _target: #Label_Ovary; visible: true"
                 onclick="revealLabel('Ovary', 'The ovary contains ovules, which develop into seeds after fertilization.')">
       </a-sphere>
 
       <!-- Anther Label (Initially hidden) -->
-      <a-entity id="Label_Anther" position="-1 11 -10" visible="false" scale="0 0 0">
+      <a-entity id="Label_Anther" position="-2 11 -10" visible="false" scale="0 0 0">
         <a-text value="The anther contains pollen, the male reproductive cells of the flower." color="yellow" scale="10 10 10"></a-text>
       </a-entity>
 
       <!-- Invisible clickable sphere on Anther -->
       <a-sphere position="-0.5 7 -10" radius="0.5"
-                material="color:yellow"
+                material="opacity: 0; transparent: true"
                 class="clickable"
                 event-set__click="_event: click; _target: #Label_Anther; visible: true"
                 onclick="revealLabel('Anther', 'The anther contains pollen, the male reproductive cells of the flower.')">
@@ -155,7 +156,7 @@
       <div style="text-align: right;">
         <button onclick="closeQuiz()" style="font-size: 18px; background: none; color: white; border: none; cursor: pointer;">&times;</button>
       </div>
-      <h3>Solar System Quiz</h3>
+      <h3>Hibiscus Quiz</h3>
       <p id="quiz-question"></p>
       <div id="quiz-options"></div>
       <button onclick="nextQuestion()">Next</button>
@@ -242,6 +243,7 @@
     });
 
     const quizData = [
+      { question: "What is the biological name of HIBISCUS?", options: ["Hibiscus rosa-sinensis", "Hibis Helianthus annuus", "Hibi Orchidaceae"], answer: "Hibiscus rosa-sinensis" },
       { question: "Which part is male reproductive?", options: ["Pistil", "Sepal", "Stamen"], answer: "Stamen" },
       { question: "Which part is female reproductive?", options: ["Filament", "Stamen", "Pistil"], answer: "Pistil" },
       { question: "Which part attracts the pollen grains?", options: ["Stamen", "Anther", "Petal"], answer: "Petal" },
