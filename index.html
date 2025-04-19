@@ -32,7 +32,13 @@
                 scale="30 30 30"
                 visible="true"
                 animation-mixer>
-                <a-text value="The biological name of Hibiscus is Hibiscus rosa-sinensis." color="yellow" position="-2 11 -10" scale="10 10 10"></a-text>
+                <a-text value="The biological name of Hibiscus is Hibiscus rosa-sinensis"
+                  color="yellow"
+                  align="center"
+                  width="3"
+                  position="0 2.5 0.01"
+                  scale="1 1 1">
+                </a-text>
       </a-entity>
 
       <!-- Hibb2 -->
@@ -139,7 +145,7 @@
       <a-entity id="quizButton"
                 geometry="primitive: plane; height: 0.4; width: 1.5"
                 material="color: #28a745; opacity: 0.9"
-                position="0 0 0.05"
+                position="0 0 2"
                 text="value: Take the Quiz; align: center; color: white; width: 4"
                 visible="false"
                 class="clickable"
@@ -194,7 +200,7 @@
     document.querySelectorAll('.clickable').forEach(element => {
     element.addEventListener('click', () => {
         const labelId = element.id.replace('hib', 'Label'); // Example: hib1 -> Label_1
-        const voiceText = `${labelId} helps pollinators understand the plant better.`; // Customize this
+        const voiceText = `${labelId} helps pollinators understand the plant better.`; 
         revealLabel(labelId, voiceText);
     });
     });
