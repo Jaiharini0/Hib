@@ -55,6 +55,21 @@
                 gesture-controls>
       </a-entity>
 
+      <!-- Petal Label (Initially hidden) -->
+      <a-entity id="Label_Petal" position="1 0.3 0.5" visible="false" scale="0 0 0">
+        <a-text value="Petal" color="pink" scale="1 1 1"></a-text>
+      </a-entity>
+
+      <!-- Invisible clickable sphere on Petal -->
+      <a-sphere position="0.7 0.05 0.5" radius="0.05"
+                material="opacity: 0; transparent: true"
+                class="clickable"
+                event-set__click="_event: click; _target: #Label_Petal; visible: true"
+                onclick="revealLabel('Petal', 'Petal helps attract pollinators with its color.')">
+      </a-sphere>
+
+
+
       <!-- Quiz Button -->
       <a-entity id="quizButton"
                 geometry="primitive: plane; height: 0.4; width: 1.5"
@@ -92,73 +107,21 @@
       speechSynthesis.speak(utterance);
     }
 
-    AFRAME.registerComponent("label-on-click", {
-      init: function () {
-        const el = this.el;
-    
-        el.addEventListener("model-loaded", () => {
-          const flower = el.getObject3D("mesh");
-    
-          if (!flower) return;
-    
-          flower.traverse((node) => {
-            if (node.isMesh && node.name) {
-              const partName = node.name;
-    
-              // Create an invisible clickable box over each part
-              const clickArea = document.createElement("a-entity");
-              clickArea.setAttribute("geometry", "primitive: box; height: 0.05; width: 0.05; depth: 0.05");
-              clickArea.setAttribute("material", "opacity: 0; transparent: true;");
-              
-              // Adjust position slightly up for better click registration
-              const worldPos = new THREE.Vector3();
-              node.getWorldPosition(worldPos);
-              clickArea.setAttribute("position", `${worldPos.x} ${worldPos.y} ${worldPos.z}`);
-    
-              clickArea.setAttribute("class", "clickable");
-    
-              clickArea.addEventListener("click", () => {
-                showLabel(partName, worldPos);
-              });
-    
-              el.sceneEl.appendChild(clickArea);
-            }
-          });
+    function revealLabel(labelId, voiceText) {
+        const label = document.getElementById(`Label_${labelId}`);
+        label.setAttribute('visible', true);
+        label.setAttribute('animation__scale', {
+          property: 'scale',
+          to: '0.3 0.3 0.3',
+          dur: 600,
+          easing: 'easeOutBack'
         });
-    
-        function showLabel(name, pos) {
-          // Avoid duplicate labels
-          if (document.getElementById("label-" + name)) return;
-    
-          const label = document.createElement("a-entity");
-          label.setAttribute("id", "label-" + name);
-          label.setAttribute("text", {
-            value: name.replaceAll("_", " "), // Optional formatting
-            align: "center",
-            color: "#FFD700",
-            width: 2
-          });
-    
-          // Show label slightly above the part
-          label.setAttribute("position", {
-            x: pos.x,
-            y: pos.y + 0.15,
-            z: pos.z,
-          });
-    
-          // Scale animation
-          label.setAttribute("scale", "0 0 0");
-          label.setAttribute("animation", {
-            property: "scale",
-            to: "1 1 1",
-            dur: 500,
-            easing: "easeOutElastic"
-          });
-    
-          el.sceneEl.appendChild(label);
-        }
+      const utterance = new SpeechSynthesisUtterance(voiceText);
+        utterance.lang = 'en-US';
+        utterance.rate = 1;
+        speechSynthesis.cancel();  // Cancel previous
+        speechSynthesis.speak(utterance);
       }
-    });
 
     document.getElementById('startAR').addEventListener('click', async function () {
       try {
