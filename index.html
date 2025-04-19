@@ -69,12 +69,12 @@
       </a-sphere>
 
       <!-- Style Label (Initially hidden) -->
-      <a-entity id="Label_Style" position="-5 10 -10" visible="false" scale="0 0 0">
+      <a-entity id="Label_Style" position="3 10 -10" visible="false" scale="0 0 0">
         <a-text value="The style is a tube that connects the stigma to the ovary, guiding pollen." color="black" scale="10 10 10"></a-text>
       </a-entity>
 
       <!-- Invisible clickable sphere on Style -->
-      <a-sphere position="-5 8 -10" radius="2"
+      <a-sphere position="3 8 -10" radius="2"
                 material="color: green;"
                 class="clickable"
                 event-set__click="_event: click; _target: #Label_Style; visible: true"
@@ -95,12 +95,12 @@
       </a-sphere>
 
       <!-- Filament Label (Initially hidden) -->
-      <a-entity id="Label_Filament" position="-8 10 -10" visible="false" scale="0 0 0">
+      <a-entity id="Label_Filament" position="2 10 -10" visible="false" scale="0 0 0">
         <a-text value="The filament supports the anther and helps in pollen transfer." color="yellow" scale="10 10 10"></a-text>
       </a-entity>
 
       <!-- Invisible clickable sphere on Filament -->
-      <a-sphere position="-8 8 -10" radius="2"
+      <a-sphere position="2 8 -10" radius="2"
                 material="color: black;"
                 class="clickable"
                 event-set__click="_event: click; _target: #Label_Filament; visible: true"
@@ -108,7 +108,7 @@
       </a-sphere>
 
       <!-- Ovary Label (Initially hidden) -->
-      <a-entity id="Label_Ovary" position="-3 5 -10" visible="false" scale="0 0 0">
+      <a-entity id="Label_Ovary" position="-1 5 -10" visible="false" scale="0 0 0">
         <a-text value="The ovary contains ovules, which develop into seeds after fertilization." color="orange" scale="10 10 10"></a-text>
       </a-entity>
 
@@ -121,12 +121,12 @@
       </a-sphere>
 
       <!-- Anther Label (Initially hidden) -->
-      <a-entity id="Label_Anther" position="-8 13 -10" visible="false" scale="0 0 0">
+      <a-entity id="Label_Anther" position="5 13 -10" visible="false" scale="0 0 0">
         <a-text value="The anther contains pollen, the male reproductive cells of the flower." color="blue" scale="10 10 10"></a-text>
       </a-entity>
 
       <!-- Invisible clickable sphere on Anther -->
-      <a-sphere position="-8 13 -10" radius="2"
+      <a-sphere position="5 13 -10" radius="2"
                 material="color: red;"
                 class="clickable"
                 event-set__click="_event: click; _target: #Label_Anther; visible: true"
