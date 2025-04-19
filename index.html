@@ -183,6 +183,10 @@
       const utterance = new SpeechSynthesisUtterance(voiceText);
         utterance.lang = 'en-US';
         utterance.rate = 1;
+        // When speech ends, hide the label
+        utterance.onend = () => {
+          label.setAttribute('visible', false);
+        };
         speechSynthesis.cancel();  // Cancel previous
         speechSynthesis.speak(utterance);
       }
