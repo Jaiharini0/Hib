@@ -28,7 +28,7 @@
       <!-- Hibb1 -->
       <a-entity id="hib1"
                 gltf-model="#hibModel"
-                position="0 0 -20"
+                position="0 0 -80"
                 scale="20 20 20"
                 visible="true"
                 animation-mixer>
@@ -38,7 +38,7 @@
       <a-entity id="hib2"
                 gltf-model="#hibbModel"
                 animation-mixer
-                position="1 15 -70"
+                position="5 15 -70"
                 scale="0.5 0.5 0.5"
                 visible="false"
                 gesture-controls>
@@ -47,7 +47,7 @@
       <!-- Hibb3 -->
       <a-entity id="hib3"
                 gltf-model="#hibbbModel"
-                position="-2 0 -50"
+                position="2 0 -50"
                 scale="40 40 40"
                 visible="false"
                 class="clickable"
@@ -122,6 +122,13 @@
         speechSynthesis.cancel();  // Cancel previous
         speechSynthesis.speak(utterance);
       }
+    document.querySelectorAll('.clickable').forEach(element => {
+    element.addEventListener('click', () => {
+        const labelId = element.id.replace('hib', 'Label'); // Example: hib1 -> Label_1
+        const voiceText = `${labelId} helps pollinators understand the plant better.`; // Customize this
+        revealLabel(labelId, voiceText);
+    });
+    });
 
     document.getElementById('startAR').addEventListener('click', async function () {
       try {
