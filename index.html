@@ -61,8 +61,8 @@
       </a-entity>
 
       <!-- Invisible clickable sphere on Petal -->
-      <a-sphere position="0.7 0.05 0.5" radius="0.05"
-                material="opacity: 0; transparent: true"
+      <a-sphere position="0.7 0.05 0.5" radius="2"
+                material="color: red;"
                 class="clickable"
                 event-set__click="_event: click; _target: #Label_Petal; visible: true"
                 onclick="revealLabel('Petal', 'Petal helps attract pollinators with its color.')">
